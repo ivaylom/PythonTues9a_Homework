@@ -63,7 +63,7 @@ for i in range(16):
     buttons[i].configure(command = onClickmain)
 buttons[different].configure(command=onClickdiff)
 
-def onTimer():
+def onTimer():        #NE RABOTI TAYMERA
     global label2
     global buttons
     global seconds
