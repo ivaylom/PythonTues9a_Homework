@@ -10,8 +10,8 @@ barW = 30
 barH = 100
 barOffset = 30
 barSpeed = 5
-vectorX = -2
-vectorY = 1
+vectorX = -0.2
+vectorY = 0.1
 score = 0
 isUp = False
 isDown = False
@@ -67,8 +67,18 @@ def isCollide(side):
         if distance([barCoords[2], barCoords[3]], ballCenter) < r/2:
             return True
 
-        # If all checks failed, the ball must be somewhere inside the bar, thus return True
+        # If all of those checks failed, the ball must be somewhere inside the bar or just next to one of the two corners
+
+        # Check if it is next to the top right corner
+        if barW + barOffset < ballCoords[0] or barCoords[1] < ballCoords[3]:
+            return False
+        # Check if it is next to the bottom right corner
+        if barW + barOffset < ballCoords[0] or barCoords[3] > ballCoords[1]:
+            return False
+
+        # If those two checks failed as well, the ball must be inside the bar
         return True
+
 
 
 def center(coords):
