@@ -43,9 +43,11 @@ def isCollide(side):
     if side == "left":
         return ballCoords[0] <= 0
     if side == "bar":
-        barCoords = c.coords(bar)
         #return vectorX < 0 and ballCoords[0] <= barCoords[2] and \
         #       ballCoords[3] >= barCoords[1] and ballCoords[1] <= barCoords[3]
+
+        barCoords = c.coords(bar)
+        ballCenter = center(ballCoords)
 
         # Checks if ball is travelling right. Prevents ball going back and forth
         if vectorX >= 0:
@@ -59,7 +61,11 @@ def isCollide(side):
         # Check if ball isn't too far below bar
         if ballCoords[1] > barCoords[3]:
             return False
-        ballCenter = center(ballCoords)
+        # Check if ball is inside the bar
+        if ballCenter[1] > barCoords[1] and\
+           ballCenter[1] < barCoords[3] and\
+           ballCenter[0] < barW + barOffset + r/2:
+               return True
         # Check if ball is inside top right corner of bar
         if distance([barCoords[2], barCoords[1]], ballCenter) < r/2:
             return True
